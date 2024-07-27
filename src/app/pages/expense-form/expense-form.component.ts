@@ -26,13 +26,17 @@ export class ExpenseFormComponent implements OnInit {
     this.activatedRoute.params.subscribe({
       next: (params) => {
         this.expenseId = params['id'];
-        this.getExpense(this.expenseId);
+        if(this.expenseId !== '' && this.expenseId !== undefined){
+          console.log(this.expenseId);
+          this.getExpense(this.expenseId);
+        }
+
       }
     })
   }
   onSubmit() {
     if (this.expenseForm.valid) {
-      if(this.expenseId !== ''){
+      if(this.expenseId !== undefined){
         this.expenseService.updateExpense(this.expenseId,this.expenseForm.value);
       }else{
         this.expenseService.addExpense(this.expenseForm.value);
